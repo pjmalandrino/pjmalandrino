@@ -1,7 +1,7 @@
 ### Hi there 👋
 
 
-- 🔭 I’m currently working on Microservices and Event-driven architectures
+- 🔭 I’m currently working on building LLM powered (usefull) tools
 - 🌱 I’m currently learning quantum Computing
 - 👯 I’m a writer on medium : https://medium.com/@1531984106454
 - 💬 Ask me about Software Architecture
