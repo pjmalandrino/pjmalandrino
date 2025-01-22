@@ -3,7 +3,7 @@
 
 - 🔭 I’m currently working on building LLM powered (usefull) tools
 - 🌱 I’m currently learning quantum Computing
-- 👯 I’m a writer on medium : https://medium.com/@1531984106454
+- 👯 I’m a writer on medium : [Medium profile](https://medium.com/@pmalandrino)
 - 💬 Ask me about Software Architecture
 - 📫 How to reach me: pierjean.malandrino@scub.net
 
