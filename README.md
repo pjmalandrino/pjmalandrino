@@ -1,10 +1,10 @@
 ### Hi there 👋
 
 
-- 🔭 I’m currently working on building LLM powered (usefull) tools
-- 🌱 I’m currently learning quantum Computing
+- 🔭 I’m currently working on LLM agents
+- 🌱 I’m currently learning Advanced Chain Of Thought Architecture
 - 👯 I’m a writer on medium : [Medium profile](https://medium.com/@pmalandrino)
-- 💬 Ask me about Software Architecture
+- 💬 Ask me about Software Architecture, AI, History
 - 📫 How to reach me: pierjean.malandrino@scub.net
 
 <!--
