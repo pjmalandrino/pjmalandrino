@@ -1,7 +1,7 @@
 ### Hi there 👋
 
 
-- 🔭 I’m currently working on LLM agents
+- 🔭 I’m currently working on Docling Studio
 - 🌱 I’m currently learning Advanced Chain Of Thought Architecture
 - 👯 I’m a writer on medium : [Medium profile](https://medium.com/@pmalandrino)
 - 💬 Ask me about Software Architecture, AI, History
