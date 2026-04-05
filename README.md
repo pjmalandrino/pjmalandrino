@@ -14,7 +14,7 @@ My background: ESTIA + MSc Cranfield University (UK).
 
 ## ✍️ Writing
 I've published 28+ articles on software architecture and AI:
-* [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html)
+* [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) (180K+ vues)
 * [Medium](https://medium.com/@pier-jean-malandrino) (3.6K followers)
 
 ## 📫 Contact
