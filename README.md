@@ -8,11 +8,11 @@ I design and ship AI systems end-to-end — from architecture to production depl
 
 🔧 **[Docling Studio](https://github.com/scub-france/Docling-Studio)** — Open-source visual inspection layer for the Docling project (Linux Foundation AI & Data / IBM Research Zurich). Vue 3 + FastAPI, hexagonal architecture, single multi-arch Docker image. Features: bounding box visualization, interactive RAG chunking, dual conversion modes (local/remote).
 
-🏭 **ISIA** — Production RAG system serving ~1,000 field technicians (hybrid search, PostgreSQL, OVH GPU infrastructure).
+🏭 **ISIA** — Production RAG system serving field technicians (hybrid search, PostgreSQL, OVH GPU infrastructure).
 
 ### Writing
 
-28+ articles on [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) · [Medium](https://medium.com/@pier-jean-malandrino) (3.6K followers)
+30+ articles on [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) · [Medium](https://medium.com/@pier-jean-malandrino) (3.6K followers)
 
 ### Contact
 
