@@ -1,15 +1,19 @@
-### Hi there 👋
+## CTO @ SCUB · Software Architect · AI Engineering
 
+DZone Core Member · French Ministry of Economy AI Ambassador ("Osez l'IA")
 
-- 🔭 I’m currently working on Docling Studio
-- 🌱 I’m currently learning Advanced Chain Of Thought Architecture
-- 👯 I’m a writer on medium : [Medium profile](https://medium.com/@pmalandrino)
-- 💬 Ask me about Software Architecture, AI, History
-- 📫 How to reach me: pierjean.malandrino@scub.net
+I design and ship AI systems end-to-end — from architecture to production deployment. Current focus: document intelligence and the open-source Docling ecosystem.
 
-<!--
-**pjmalandrino/pjmalandrino** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+### What I'm building
 
-Here are some ideas to get you started:
+🔧 **[Docling Studio](https://github.com/scub-france/Docling-Studio)** — Open-source visual inspection layer for the Docling project (Linux Foundation AI & Data / IBM Research Zurich). Vue 3 + FastAPI, hexagonal architecture, single multi-arch Docker image. Features: bounding box visualization, interactive RAG chunking, dual conversion modes (local/remote).
 
--->
+🏭 **ISIA** — Production RAG system serving ~1,000 field technicians (hybrid search, PostgreSQL, OVH GPU infrastructure).
+
+### Writing
+
+28+ articles on [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) · [Medium](https://medium.com/@pier-jean-malandrino) (3.6K followers)
+
+### Contact
+
+📫 pierjean.malandrino@scub.net · [LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/?locale=en_US)
