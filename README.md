@@ -20,3 +20,5 @@ I've published 28+ articles on software architecture and AI:
 ## 📫 Contact
 * Email: pierjean.malandrino@scub.net
 * [LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/?locale=en_US)
+* [Hugging Face](https://huggingface.co/Pier-Jean)
+
