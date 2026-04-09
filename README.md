@@ -4,9 +4,9 @@
 
 <br/>
 
-[![followers](https://img.shields.io/github/followers/pjmalandrino?style=flat&color=ffffff&labelColor=161b22&logo=github&logoColor=white&label=followers)](https://github.com/pjmalandrino)
+[![followers](https://img.shields.io/github/followers/pjmalandrino?style=flat&color=8b949e&labelColor=161b22&logo=github&logoColor=white&label=followers)](https://github.com/pjmalandrino?tab=followers)
 &nbsp;
-[![views](https://komarev.com/ghpvc/?username=pjmalandrino&style=flat&color=ffffff&labelColor=161b22&label=views)](https://github.com/pjmalandrino)
+[![views](https://komarev.com/ghpvc/?username=pjmalandrino&style=flat&color=8b949e&labelColor=161b22&label=views)](https://github.com/pjmalandrino)
 
 <br/><br/>
 
@@ -16,7 +16,7 @@
 
 [![My Skills](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
 &nbsp;
-[![Karate](https://img.shields.io/badge/Karate-UI-blueviolet?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQyIDAtOC0zLjU4LTgtOHMzLjU4LTggOC04IDggMy41OCA4IDgtMy41OCA4LTggOHoiLz48L3N2Zz4=&logoColor=white)](https://github.com/karatelabs/karate)
+<a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="48"/></a>
 
 <br/>
 
