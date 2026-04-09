@@ -1,24 +1,25 @@
-# Hi, I'm Pier-Jean 👋
+<div align="center">
 
-## 🧑‍💻 About me
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=26&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=600&lines=CTO+%40+SCUB;building+Docling+Studio;writing+about+AI" alt="Typing SVG" />
 
-I'm CTO at **SCUB**, a digital services company based in Bordeaux & Angoulême (~70 people), where I drive technical strategy and R&D. With two VP managers handling day-to-day operations, I focus on AI architecture, open-source contributions, and external positioning.
+<br/>
 
-I'm also a **French Ministry of Economy AI Ambassador** ("Osez l'IA") and a **DZone Core Member**, writing about software architecture and AI.
+[![followers](https://img.shields.io/github/followers/pjmalandrino?style=flat&color=ffffff&labelColor=161b22&logo=github&logoColor=white&label=followers)](https://github.com/pjmalandrino)
+&nbsp;
+[![views](https://komarev.com/ghpvc/?username=pjmalandrino&style=flat&color=ffffff&labelColor=161b22&label=views)](https://github.com/pjmalandrino)
 
-My background: ESTIA + MSc Cranfield University (UK).
+<br/><br/>
 
-## 🔭 Current projects
-* **[Docling Studio](https://github.com/scub-france/Docling-Studio)** — An open-source visual inspection tool for the Docling ecosystem (Linux Foundation AI & Data / IBM Research Zurich). Vue 3 + FastAPI, hexagonal architecture, single multi-arch Docker image. Features include bounding box visualization, interactive RAG chunking, and dual conversion modes (local / remote).
-* **[Isiadoc](https://www.isiadoc.com/)** — A production RAG system serving field technicians for querying internal documentation (hybrid search, PostgreSQL, OVH GPU infrastructure).
+[Docling Studio](https://github.com/scub-france/Docling-Studio) &nbsp;·&nbsp; [Medium](https://medium.com/@pier-jean-malandrino) &nbsp;·&nbsp; [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/) &nbsp;·&nbsp; [𝕏](https://x.com/pjmalandrino)
 
-## ✍️ Writing
-I've published 28+ articles on software architecture and AI:
-* [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) (180K+ vues)
-* [Medium](https://medium.com/@pier-jean-malandrino) (3.6K followers)
+<br/>
 
-## 📫 Contact
-* Email: pierjean.malandrino@scub.net
-* [LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/?locale=en_US)
-* [Hugging Face](https://huggingface.co/Pier-Jean)
+[![My Skills](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
+&nbsp;
+[![Karate](https://img.shields.io/badge/Karate-UI-blueviolet?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQyIDAtOC0zLjU4LTgtOHMzLjU4LTggOC04IDggMy41OCA4IDgtMy41OCA4LTggOHoiLz48L3N2Zz4=&logoColor=white)](https://github.com/karatelabs/karate)
 
+<br/>
+
+<img src="https://github-readme-streak-stats.herokuapp.com?user=pjmalandrino&hide_border=true&background=0d1117&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&sideLabels=8b949e&currStreakNum=ffffff&sideNums=ffffff&dates=8b949e"/>
+
+</div>
