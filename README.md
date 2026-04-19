@@ -17,6 +17,8 @@
 [![My Skills](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
 &nbsp;
 <a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="48"/></a>
+&nbsp;
+<a href="https://github.com/docling-project/docling"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.svg" alt="Docling" height="48"/></a>
 
 <br/>
 
