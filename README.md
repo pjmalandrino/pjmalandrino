@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=26&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=600&lines=CTO+%40+SCUB;building+Docling+Studio;writing+about+AI" alt="Typing SVG" />
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=26&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&repeat=true&width=600&lines=CTO+%40+SCUB;building+Docling+Studio;writing+about+AI" alt="Typing SVG" /></a>
 
 <br/>
 
@@ -14,8 +14,16 @@
 
 <br/>
 
+<h3>Techno</h3>
+
 [![My Skills](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
-&nbsp;
+
+<br/>
+
+<h3>Focus open source</h3>
+
+<a href="https://github.com/docling-project/docling"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling" height="48"/></a>
+&nbsp;&nbsp;
 <a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="48"/></a>
 
 <br/>
