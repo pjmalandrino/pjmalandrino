@@ -26,11 +26,8 @@ Je construis des produits autour du traitement documentaire intelligent et j'éc
 &nbsp;&nbsp;&nbsp;
 <a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="44"/></a>
 
-### Stats
+### Languages
 
-<a href="https://github.com/pjmalandrino">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=pjmalandrino&show_icons=true&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1117&title_color=ffffff&text_color=8b949e&icon_color=ffffff&ring_color=ffffff" alt="stats"/>
-</a>
 <a href="https://github.com/pjmalandrino">
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=pjmalandrino&layout=compact&hide_border=true&langs_count=8&bg_color=0d1117&title_color=ffffff&text_color=8b949e" alt="top langs"/>
 </a>
