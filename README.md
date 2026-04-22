@@ -12,6 +12,10 @@ Je construis des produits autour du traitement documentaire intelligent et j'éc
 - Contributing to **[Docling](https://github.com/docling-project/docling)** and exploring agentic pipelines
 - Writing on [Medium](https://medium.com/@pier-jean-malandrino) and [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html)
 
+<a href="https://github.com/scub-france/Docling-Studio">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=scub-france&repo=Docling-Studio&hide_border=true&bg_color=0d1117&title_color=ffffff&text_color=8b949e&icon_color=ffffff" alt="Docling Studio"/>
+</a>
+
 ### Stack
 
 [![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
