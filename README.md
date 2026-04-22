@@ -1,33 +1,27 @@
-<div align="center">
+# Pier-Jean Malandrino
 
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=26&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&repeat=true&width=600&lines=CTO+%40+SCUB;building+Docling+Studio;writing+about+AI" alt="Typing SVG" /></a>
+**CTO @ [SCUB](https://scub.net)** · AI & document intelligence
 
-<br/>
+Je construis des produits autour du traitement documentaire intelligent et j'écris sur l'architecture logicielle, l'IA appliquée et le craft d'ingénierie.
 
-[![followers](https://img.shields.io/github/followers/pjmalandrino?style=flat&color=8b949e&labelColor=161b22&logo=github&logoColor=white&label=followers)](https://github.com/pjmalandrino?tab=followers)
-&nbsp;
-[![views](https://komarev.com/ghpvc/?username=pjmalandrino&style=flat&color=8b949e&labelColor=161b22&label=views)](https://github.com/pjmalandrino)
+---
 
-<br/><br/>
+### Currently
 
-[Docling Studio](https://github.com/scub-france/Docling-Studio) &nbsp;·&nbsp; [Medium](https://medium.com/@pier-jean-malandrino) &nbsp;·&nbsp; [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/) &nbsp;·&nbsp; [𝕏](https://x.com/pjmalandrino)
+- Building **[Docling Studio](https://github.com/scub-france/Docling-Studio)** — an open workspace for document understanding
+- Contributing to **[Docling](https://github.com/docling-project/docling)** and exploring agentic pipelines
+- Writing on [Medium](https://medium.com/@pier-jean-malandrino) and [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html)
 
-<br/>
+### Stack
 
-<h3>Techno</h3>
+[![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
 
-[![My Skills](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
+### Open source I care about
 
-<br/>
+<a href="https://github.com/docling-project/docling"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling" height="44"/></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="44"/></a>
 
-<h3>Focus open source</h3>
+### Elsewhere
 
-<a href="https://github.com/docling-project/docling"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling" height="48"/></a>
-&nbsp;&nbsp;
-<a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="48"/></a>
-
-<br/>
-
-<img src="https://github-readme-streak-stats.herokuapp.com?user=pjmalandrino&hide_border=true&background=0d1117&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&sideLabels=8b949e&currStreakNum=ffffff&sideNums=ffffff&dates=8b949e"/>
-
-</div>
+[LinkedIn](https://www.linkedin.com/in/pier-jean-malandrino/) · [Medium](https://medium.com/@pier-jean-malandrino) · [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html) · [X](https://x.com/pjmalandrino)
