@@ -6,11 +6,11 @@
 
 **CTO @ [SCUB](https://scub.net)** · AI & document intelligence
 
-Je construis des produits autour du traitement documentaire intelligent et j'écris sur l'architecture logicielle, l'IA appliquée et le craft d'ingénierie.
+I build products around intelligent document processing and write about software architecture, applied AI, and engineering craft.
 
 <p align="center">
   <a href="https://github.com/pjmalandrino">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3200&pause=900&color=58A6FF&center=true&vCenter=true&width=520&lines=CTO+%40+SCUB;AI+%26+document+intelligence;Open+source+%E2%80%94+Docling%2C+agentic+pipelines;Craft+d'ing%C3%A9nierie" alt="typing"/>
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3200&pause=900&color=58A6FF&center=true&vCenter=true&width=520&lines=CTO+%40+SCUB;AI+%26+document+intelligence;Open+source+%E2%80%94+Docling%2C+agentic+pipelines;Engineering+craft" alt="typing"/>
   </a>
 </p>
 
