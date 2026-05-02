@@ -1,8 +1,18 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,30:1F6FEB,60:6E40C9,100:0D1117&height=180&section=header&text=Pier-Jean%20Malandrino&fontColor=ffffff&fontSize=42&fontAlignY=38&desc=CTO%20%40%20SCUB%20%C2%B7%20AI%20%26%20document%20intelligence&descSize=16&descAlignY=60&animation=fadeIn" alt="banner"/>
+</p>
+
 # Pier-Jean Malandrino
 
 **CTO @ [SCUB](https://scub.net)** · AI & document intelligence
 
 Je construis des produits autour du traitement documentaire intelligent et j'écris sur l'architecture logicielle, l'IA appliquée et le craft d'ingénierie.
+
+<p align="center">
+  <a href="https://github.com/pjmalandrino">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3200&pause=900&color=58A6FF&center=true&vCenter=true&width=520&lines=CTO+%40+SCUB;AI+%26+document+intelligence;Open+source+%E2%80%94+Docling%2C+agentic+pipelines;Craft+d'ing%C3%A9nierie" alt="typing"/>
+  </a>
+</p>
 
 ---
 
@@ -18,7 +28,7 @@ Je construis des produits autour du traitement documentaire intelligent et j'éc
 
 ### Stack
 
-[![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=dark)](https://skillicons.dev)
+[![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=light)](https://skillicons.dev)
 
 ### Open source I care about
 
@@ -31,6 +41,14 @@ Je construis des produits autour du traitement documentaire intelligent et j'éc
 <a href="https://github.com/pjmalandrino">
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=pjmalandrino&layout=compact&hide_border=true&langs_count=8&bg_color=0d1117&title_color=ffffff&text_color=8b949e" alt="top langs"/>
 </a>
+
+### Contributions
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pjmalandrino/pjmalandrino/output/github-snake-dark.svg"/>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/pjmalandrino/pjmalandrino/output/github-snake.svg"/>
+  <img alt="github contribution snake" src="https://raw.githubusercontent.com/pjmalandrino/pjmalandrino/output/github-snake.svg"/>
+</picture>
 
 ### Elsewhere
 

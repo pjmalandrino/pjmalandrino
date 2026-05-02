@@ -1,0 +1,34 @@
+name: Purge camo cache
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - '.github/workflows/purge-camo.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge all camo URLs from profile
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            -H "User-Agent: Mozilla/5.0 (camo-purge-bot)" \
+            -H "Accept: text/html" \
+            "https://github.com/pjmalandrino" \
+          | grep -oE 'https://camo\.githubusercontent\.com/[a-zA-Z0-9./_-]+' \
+          | sort -u \
+          | tee /tmp/camo-urls.txt
+          echo "Found $(wc -l < /tmp/camo-urls.txt) camo URLs"
+          while IFS= read -r url; do
+            echo "PURGE $url"
+            curl -fsS -X PURGE -o /dev/null -w "  -> %{http_code}\n" "$url" || true
+          done < /tmp/camo-urls.txt
