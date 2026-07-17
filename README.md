@@ -22,11 +22,11 @@ I build products around intelligent document processing and write about software
 
 [![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=light)](https://skillicons.dev)
 
-### Open source I care about
+### Projects I contribute to
 
 <a href="https://github.com/docling-project/docling"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling" height="44"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/karatelabs/karate"><img src="https://raw.githubusercontent.com/karatelabs/karate/master/karate-core/src/main/java/karate-logo.svg" alt="Karate" height="44"/></a>
+<a href="https://github.com/karatelabs/karate"><img src="./assets/karate-logo.svg" alt="Karate" height="44"/></a>
 
 ### Contributions
 
