@@ -15,7 +15,7 @@ I build products around intelligent document processing and write about software
 ### Currently
 
 - Building **[Docling Studio](https://github.com/scub-france/Docling-Studio)** — an open workspace for document understanding
-- Contributing to **[Docling](https://github.com/docling-project/docling)** and exploring agentic pipelines
+- Contributing to **[Docling](https://github.com/docling-project/docling)** and **[Karate](https://github.com/karatelabs/karate)**, and exploring agentic pipelines
 - Writing on [Medium](https://medium.com/@pier-jean-malandrino) and [DZone](https://dzone.com/users/5765872/pier-jean-malandrino.html)
 
 ### Stack
