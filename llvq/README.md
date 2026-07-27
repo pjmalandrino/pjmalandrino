@@ -19,12 +19,19 @@ Plan détaillé, gates de validation et provenance :
 | 5 | Spherical GPTQ + pipeline LLM | G5 | à venir |
 | 6 | Noyau CUDA fusé multi-couches | G6 | à venir |
 
-Gate G1 (tout passe, `cargo test --release -- --include-ignored`, ~1,5 s) :
+Gate G1 (tout passe, `cargo test --release -- --include-ignored`, ~1,7 s) :
 distribution des poids de Golay 1/759/2576/759/1, distance minimale 8,
-auto-dualité, **nombre de baisers 196 560** et **|Shell(3)| = 16 773 120**
-reproduits par énumération exhaustive où chaque vecteur compté est validé
-individuellement par le prédicat d'appartenance, norme minimale 32, clôture
-additive sur 10⁴ paires aléatoires.
+auto-dualité, distinction des 4096 mots, **nombre de baisers 196 560** et
+**|Shell(3)| = 16 773 120** reproduits par énumération exhaustive où chaque
+vecteur compté est validé individuellement par le prédicat d'appartenance,
+spot-checks Shell(4) (48 et 170 016), norme minimale 32, clôture additive.
+
+La suite a été durcie par un audit adversarial multi-agents (mutation
+testing) : le test `golay_stage_is_load_bearing` contient des sondes qui ne
+sont rejetées **que** par l'étage Golay du prédicat — supprimer cet étage
+fait échouer la suite (vérifié par mutation), ce qui n'était pas le cas de
+la première version. Arithmétique exacte sur tout le domaine `[i32; 24]`
+(norme en i128, add/neg vérifiés), `#![forbid(unsafe_code)]`.
 
 ## Stratégie de test LLM (phases 4+)
 

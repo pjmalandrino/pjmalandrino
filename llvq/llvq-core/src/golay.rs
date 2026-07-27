@@ -25,7 +25,10 @@ pub const GEN_POLY: u32 = 0xC75;
 /// The reciprocal factor `g1(x) = x^11 + x^9 + x^7 + x^6 + x^5 + x + 1`.
 pub const GEN_POLY_RECIPROCAL: u32 = 0xAE3;
 
-/// Carry-less (GF(2)) polynomial multiplication.
+/// Carry-less (GF(2)) polynomial multiplication, **low 64 bits only**:
+/// bits of the product at position ≥ 64 are silently dropped, so the result
+/// is exact iff `deg a + deg b < 64` (true for every use in this crate,
+/// where products have degree ≤ 23).
 pub fn clmul(mut a: u64, mut b: u64) -> u64 {
     let mut acc = 0u64;
     while b != 0 {
@@ -40,13 +43,13 @@ pub fn clmul(mut a: u64, mut b: u64) -> u64 {
 
 /// The extended binary Golay code `[24, 12, 8]`.
 ///
-/// Holds the full list of 4096 codewords (16 KiB) plus weight-indexed
-/// buckets; membership is a binary search. This is small enough to live in
-/// L1/L2 and fast enough for exhaustive shell enumeration in the tests and
-/// for the Adoul–Barth search of Phase 2, which iterates codewords by weight.
+/// Single flat storage: the 4096 codewords (16 KiB) laid out weight-major,
+/// ascending within each weight bucket, plus a 26-entry offset table.
+/// Membership is a binary search within the word's weight bucket; Phase 2
+/// (Adoul–Barth) iterates buckets contiguously in hot loops.
 pub struct Golay {
-    sorted: Vec<u32>,
-    by_weight: Vec<Vec<u32>>,
+    flat: Vec<u32>,
+    offsets: [usize; 26],
 }
 
 impl Golay {
@@ -54,9 +57,10 @@ impl Golay {
     ///
     /// `m(x) · g2(x)` has degree ≤ 22, so no modular reduction is needed:
     /// the products *are* the cyclic codewords. The map is injective because
-    /// F₂[x] is an integral domain.
+    /// F₂[x] is an integral domain (the G1 suite additionally asserts the
+    /// 4096 stored words are pairwise distinct).
     pub fn new() -> Self {
-        let mut sorted: Vec<u32> = (0u32..4096)
+        let mut flat: Vec<u32> = (0u32..4096)
             .map(|m| {
                 let c = clmul(m as u64, GEN_POLY as u64) as u32;
                 debug_assert!(c < (1 << 23));
@@ -64,30 +68,46 @@ impl Golay {
                 c | (parity << 23)
             })
             .collect();
-        sorted.sort_unstable();
+        flat.sort_unstable_by_key(|&c| (c.count_ones(), c));
 
-        let mut by_weight = vec![Vec::new(); 25];
-        for &c in &sorted {
-            by_weight[c.count_ones() as usize].push(c);
+        let mut offsets = [0usize; 26];
+        for &c in &flat {
+            offsets[c.count_ones() as usize + 1] += 1;
         }
-        Self { sorted, by_weight }
+        for w in 0..25 {
+            offsets[w + 1] += offsets[w];
+        }
+        Self { flat, offsets }
     }
 
-    /// Membership test (exact, by binary search over the 4096 codewords).
+    /// Membership test (exact): binary search within the weight bucket.
+    /// Total over all of `u32` — words with bits ≥ 24 or weight > 24 are
+    /// simply not codewords.
     #[inline]
     pub fn contains(&self, word: u32) -> bool {
-        self.sorted.binary_search(&word).is_ok()
+        let w = word.count_ones() as usize;
+        if w > 24 {
+            return false;
+        }
+        self.flat[self.offsets[w]..self.offsets[w + 1]]
+            .binary_search(&word)
+            .is_ok()
     }
 
-    /// All 4096 codewords, sorted ascending.
+    /// All 4096 codewords, in a fixed deterministic order
+    /// (weight-major, ascending within each weight).
     pub fn codewords(&self) -> &[u32] {
-        &self.sorted
+        &self.flat
     }
 
-    /// Codewords of the given Hamming weight
-    /// (non-empty only for weights 0, 8, 12, 16, 24).
+    /// Codewords of the given Hamming weight, ascending
+    /// (non-empty only for weights 0, 8, 12, 16, 24). Total function:
+    /// any `weight > 24` yields an empty slice, never a panic.
     pub fn of_weight(&self, weight: usize) -> &[u32] {
-        &self.by_weight[weight]
+        if weight > 24 {
+            return &[];
+        }
+        &self.flat[self.offsets[weight]..self.offsets[weight + 1]]
     }
 }
 
@@ -122,5 +142,13 @@ mod tests {
                 assert!(g.contains(cw[i] ^ cw[j]));
             }
         }
+    }
+
+    #[test]
+    fn of_weight_is_total() {
+        let g = Golay::new();
+        assert!(g.of_weight(25).is_empty());
+        assert!(g.of_weight(usize::MAX).is_empty());
+        assert!(!g.contains(u32::MAX)); // weight 32 > 24
     }
 }

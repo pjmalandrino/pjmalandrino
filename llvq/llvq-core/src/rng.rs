@@ -7,6 +7,7 @@
 pub struct SplitMix64(pub u64);
 
 impl SplitMix64 {
+    /// Seeded construction; the same seed always yields the same stream.
     pub fn new(seed: u64) -> Self {
         Self(seed)
     }

@@ -2,18 +2,29 @@
 //!
 //! Every constant asserted here is public mathematics (Conway & Sloane,
 //! *Sphere Packings, Lattices and Groups*; OEIS A008408), independent of the
-//! LLVQ paper. If one of these tests fails the implementation is wrong; if
-//! they all pass, the construction is pinned down with very high confidence:
-//! the kissing number 196 560 in particular is reproduced by exhaustive
-//! enumeration in which **every counted vector is individually verified by
-//! the membership predicate**.
+//! LLVQ paper. The kissing number 196 560 and |Shell(3)| = 16 773 120 are
+//! reproduced by exhaustive enumeration in which every counted vector is
+//! individually verified by the membership predicate.
 //!
 //! Completeness arguments (why the enumerated shapes are the only ones) are
 //! given inline: a shell fixes `Σxᵢ² = 16m` with uniform parity, so the
 //! multiset of |coordinates| solves a small partition problem over squares.
+//!
+//! ## Mutation coverage
+//!
+//! An adversarial audit (2026-07) showed by mutation testing that the shell
+//! enumerations alone do NOT exercise the Golay stage of `Leech::contains`:
+//! they build their mod-4 words from genuine codewords, and every wrong-word
+//! candidate they generate happens to also violate the sum congruence
+//! (doubled Golay weights are ≡ 0 mod 8, so a word at Hamming distance 1–2
+//! from a codeword shifts the sum by ±2/±6). `golay_stage_is_load_bearing`
+//! exists precisely to close that hole: its probes satisfy parity AND the
+//! sum congruence and are rejected *only* by the Golay stage — deleting that
+//! stage makes this file fail, not pass.
 
 use llvq_core::rng::SplitMix64;
 use llvq_core::{Golay, Leech, Point, DIM};
+use llvq_core::leech::THETA;
 
 // ---------------------------------------------------------------------------
 // Golay code invariants
@@ -36,6 +47,26 @@ fn golay_weight_distribution() {
             "weight-{w} codeword count mismatch"
         );
     }
+}
+
+/// The 4096 stored codewords are pairwise distinct — asserted directly
+/// (strict ordering within each weight bucket) rather than inferred from
+/// linearity: a non-linear encoder bug that duplicated one octad and
+/// dropped another would pass every other test in this file.
+#[test]
+fn golay_codewords_distinct() {
+    let g = Golay::new();
+    assert_eq!(g.codewords().len(), 4096);
+    let mut total = 0;
+    for w in 0..=24 {
+        let bucket = g.of_weight(w);
+        assert!(
+            bucket.windows(2).all(|p| p[0] < p[1]),
+            "weight-{w} bucket not strictly increasing"
+        );
+        total += bucket.len();
+    }
+    assert_eq!(total, 4096);
 }
 
 #[test]
@@ -164,6 +195,107 @@ fn leech_kissing_number_196560() {
     assert_eq!(c4, 1_104, "(±4²) class");
     assert_eq!(c3, 98_304, "(±3, ±1²³) class");
     assert_eq!(c2 + c4 + c3, 196_560, "kissing number of Λ24");
+    // Pin the exported constant to the enumerated count.
+    assert_eq!(THETA[0], (2, c2 + c4 + c3));
+}
+
+// ---------------------------------------------------------------------------
+// The Golay stage of `contains` must be load-bearing
+// ---------------------------------------------------------------------------
+
+/// Probes that satisfy parity AND the sum congruence and are rejected ONLY
+/// by the Golay stage (see the mutation-coverage note in the file header).
+/// Each probe re-asserts its own sum congruence so that a future edit cannot
+/// silently turn it back into a sum-rejected candidate.
+#[test]
+fn golay_stage_is_load_bearing() {
+    let l = Leech::new();
+    let sum = |x: &Point| x.iter().map(|&v| v as i64).sum::<i64>().rem_euclid(8);
+
+    // Even probe 1: (2,2,2,2,0²⁰) — word weight 4 ∉ Golay, sum 8 ≡ 0 (mod 8).
+    let mut x: Point = [0; DIM];
+    for xi in x.iter_mut().take(4) {
+        *xi = 2;
+    }
+    assert_eq!(sum(&x), 0);
+    assert!(!l.contains(&x), "(2⁴) must be Golay-rejected");
+
+    // Even probe 2: eight 2s on a weight-8 support that is NOT an octad
+    // (sum 16 ≡ 0 mod 8). Find the first such support deterministically.
+    let support = (0u32..(1 << 24))
+        .find(|&b| b.count_ones() == 8 && !l.golay().contains(b))
+        .expect("some weight-8 non-codeword must exist");
+    let mut y: Point = [0; DIM];
+    for (i, yi) in y.iter_mut().enumerate() {
+        if support >> i & 1 == 1 {
+            *yi = 2;
+        }
+    }
+    assert_eq!(sum(&y), 0);
+    assert!(!l.contains(&y), "non-octad (2⁸) must be Golay-rejected");
+
+    // Odd probe 1: 1²⁴ with two −1 — word weight 2 ∉ Golay,
+    // sum 24 − 4 = 20 ≡ 4 (mod 8).
+    let mut z: Point = [1; DIM];
+    z[0] = -1;
+    z[1] = -1;
+    assert_eq!(sum(&z), 4);
+    assert!(!l.contains(&z), "two-(−1)s probe must be Golay-rejected");
+
+    // Odd probe 2: 1²⁴ with four −1 and one +5 — word weight 4 ∉ Golay,
+    // sum 24 − 8 + 4 = 20 ≡ 4 (mod 8).
+    let mut w: Point = [1; DIM];
+    for wi in w.iter_mut().take(4) {
+        *wi = -1;
+    }
+    w[4] = 5;
+    assert_eq!(sum(&w), 4);
+    assert!(!l.contains(&w), "weight-4-word odd probe must be Golay-rejected");
+}
+
+// ---------------------------------------------------------------------------
+// Shell 4 (‖x‖² = 64): class-level spot checks
+// ---------------------------------------------------------------------------
+
+#[test]
+fn leech_shell4_spot_checks() {
+    let l = Leech::new();
+
+    // (±8, 0²³): word 0 ∈ Golay, sum ±8 ≡ 0 — all 48 candidates are members.
+    let mut c8 = 0u64;
+    for i in 0..DIM {
+        for v in [8i32, -8] {
+            let mut x: Point = [0; DIM];
+            x[i] = v;
+            assert_eq!(Leech::shell_index(&x), Some(4));
+            if l.contains(&x) {
+                c8 += 1;
+            }
+        }
+    }
+    assert_eq!(c8, 48, "(±8) class of Shell(4)");
+
+    // (±4⁴, 0²⁰): word 0 ∈ Golay; every sign flip changes the sum by 8, so
+    // all 2⁴ patterns pass → C(24,4)·16 = 170 016 (matches paper Table 2).
+    let mut c44 = 0u64;
+    for i in 0..DIM {
+        for j in (i + 1)..DIM {
+            for k in (j + 1)..DIM {
+                for m in (k + 1)..DIM {
+                    for s in 0u32..16 {
+                        let mut x: Point = [0; DIM];
+                        for (b, &pos) in [i, j, k, m].iter().enumerate() {
+                            x[pos] = if s >> b & 1 == 1 { -4 } else { 4 };
+                        }
+                        if l.contains(&x) {
+                            c44 += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    assert_eq!(c44, 170_016, "(±4⁴) class of Shell(4) = C(24,4)·16");
 }
 
 // ---------------------------------------------------------------------------
@@ -304,9 +436,10 @@ fn leech_shell3_cardinality() {
     }
     assert_eq!(total, 5_275_648, "(±2¹²) class = 2576·2¹¹");
 
-    // (±4, ±2⁸): octad support for the 2s, the ±4 outside the octad
-    // (a ±4 on the octad would shrink the word to weight 7 — enumerate the
-    // on-octad case too and let the predicate reject it).
+    // (±4, ±2⁸): octad support for the 2s, the ±4 outside the octad.
+    // On-octad positions are SKIPPED (`continue` below), not predicate-
+    // rejected: a ±4 there would overwrite a ±2 and give norm 44 ∉ 16Z —
+    // a candidate of the wrong shape — so skipping cannot lose any member.
     let mut c48 = 0u64;
     for &oct in l.golay().of_weight(8) {
         let pos: Vec<usize> = (0..DIM).filter(|&i| oct >> i & 1 == 1).collect();
@@ -392,4 +525,6 @@ fn leech_shell3_cardinality() {
     total += c33;
 
     assert_eq!(total, 16_773_120, "|Shell(3)| — theta series coefficient");
+    // Pin the exported constant to the enumerated count.
+    assert_eq!(THETA[1], (3, total));
 }

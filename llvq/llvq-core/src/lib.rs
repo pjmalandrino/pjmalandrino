@@ -14,8 +14,10 @@
 //!   kissing number 196 560, the theta-series coefficients, the Golay weight
 //!   distribution — none of which depend on the paper itself.
 //!
-//! The crate deliberately has **zero dependencies**: the mathematical core
-//! must remain auditable, portable and reproducible.
+//! The crate deliberately has **zero dependencies** and forbids `unsafe`:
+//! the mathematical core must remain auditable, portable and reproducible.
+
+#![forbid(unsafe_code)]
 
 pub mod golay;
 pub mod leech;
@@ -23,3 +25,4 @@ pub mod rng;
 
 pub use golay::Golay;
 pub use leech::{Leech, Point, DIM};
+pub use rng::SplitMix64;
