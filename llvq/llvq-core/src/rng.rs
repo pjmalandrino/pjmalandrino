@@ -11,6 +11,11 @@ impl SplitMix64 {
         Self(seed)
     }
 
+    /// Next 64 pseudo-random bits.
+    ///
+    /// Named like `Iterator::next` on purpose — this is the conventional
+    /// name for a raw RNG step; the type does not implement `Iterator`.
+    #[allow(clippy::should_implement_trait)]
     #[inline]
     pub fn next(&mut self) -> u64 {
         self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
