@@ -403,6 +403,45 @@ fn leech_scaling_doubles_shell_index() {
 }
 
 // ---------------------------------------------------------------------------
+// Streaming shell enumerator (`Leech::for_each_shell_point`)
+// ---------------------------------------------------------------------------
+//
+// The enumerator constructs members directly (no predicate filtering), so it
+// is a THIRD implementation of the shell structure — cross-checked here
+// against the theta series, the membership predicate, and (for Shell 2,
+// where memory allows) pairwise distinctness.
+
+#[test]
+fn shell_enumerator_shell2() {
+    let l = Leech::new();
+    let mut seen = std::collections::HashSet::new();
+    let mut n = 0u64;
+    let ok = l.for_each_shell_point(2, |p| {
+        assert!(l.contains(p), "enumerator emitted a non-member");
+        assert_eq!(Leech::shell_index(p), Some(2));
+        assert!(seen.insert(*p), "enumerator emitted a duplicate");
+        n += 1;
+    });
+    assert!(ok);
+    assert_eq!(n, THETA[0].1);
+    assert!(!l.for_each_shell_point(4, |_| {}), "shell 4 must be unsupported");
+}
+
+#[cfg_attr(debug_assertions, ignore = "release-only: 16.7M membership checks")]
+#[test]
+fn shell_enumerator_shell3() {
+    let l = Leech::new();
+    let mut n = 0u64;
+    let ok = l.for_each_shell_point(3, |p| {
+        assert!(l.contains(p), "enumerator emitted a non-member");
+        assert_eq!(Leech::shell_index(p), Some(3));
+        n += 1;
+    });
+    assert!(ok);
+    assert_eq!(n, THETA[1].1);
+}
+
+// ---------------------------------------------------------------------------
 // Shell 3 (‖x‖² = 48): |Shell(3)| = 16 773 120 — release builds only
 // ---------------------------------------------------------------------------
 //

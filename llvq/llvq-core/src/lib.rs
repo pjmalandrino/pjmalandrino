@@ -22,6 +22,7 @@
 pub mod golay;
 pub mod leech;
 pub mod rng;
+pub mod shells;
 
 pub use golay::Golay;
 pub use leech::{Leech, Point, DIM};

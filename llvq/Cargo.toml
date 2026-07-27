@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["llvq-core"]
+members = ["llvq-core", "llvq-search"]
 
 [workspace.package]
 edition = "2021"

@@ -13,7 +13,7 @@ Plan détaillé, gates de validation et provenance :
 | Phase | Contenu | Gate | Statut |
 |---|---|---|---|
 | 1 | `llvq-core` — Golay [24,12,8], Λ₂₄ (Eq. 4–5), couches | **G1** ✅ | fait |
-| 2 | `llvq-search` — Adoul–Barth multi-couches (euclidien + angulaire) | G2 | à venir |
+| 2 | `llvq-search` — Adoul–Barth multi-couches (euclidien + angulaire) | **G2** ✅ | fait (m ≤ 3) |
 | 3 | Indexage bijectif hiérarchique | G3 | à venir |
 | 4 | Validation source gaussienne (Table 3 : rétention 92,11 %) | G4 | à venir |
 | 5 | Spherical GPTQ + pipeline LLM | G5 | à venir |
@@ -32,6 +32,17 @@ sont rejetées **que** par l'étage Golay du prédicat — supprimer cet étage
 fait échouer la suite (vérifié par mutation), ce qui n'était pas le cas de
 la première version. Arithmétique exacte sur tout le domaine `[i32; 24]`
 (norme en i128, add/neg vérifiés), `#![forbid(unsafe_code)]`.
+
+Gate G2 (`llvq-search`) : recherche du plus proche voisin **exacte** sur
+Shell(2), Shell(3) et leur union (métriques euclidienne *et* angulaire,
+§3.1 du papier), validée contre la force brute (argmax sur les 196 560 puis
+16,7 M points, énumérés par un troisième chemin de code lui-même épinglé à
+la série thêta). Zéro énumération à la requête : maxima par classe en forme
+close (réparation de parité par flip du min |xᵢ|), quantités par-codeword
+en tables DP par chunks de 8 bits, élagage par borne supérieure. Débit
+mesuré : **~7 300 requêtes/s/cœur** (au lieu de 507 en naïf) — l'objectif
+10⁵ attend SIMD et l'itération triée de la Phase 2b ; à ce débit, encoder
+Qwen3-4B prend ~12 min sur 32 cœurs, ce qui ne bloque pas G4/G5.
 
 ## Stratégie de test LLM (phases 4+)
 
