@@ -114,8 +114,23 @@ solide : rendre adaptatif un composant jusqu'ici arbitraire.
 4. Gérer les dimensions non-puissances-de-2 (schedules mixed-radix), point que le papier
    traite explicitement et que les implémentations naïves ratent.
 
+**Deux réserves, ajoutées après relecture croisée avec §3.3.**
+
+*Sur la baseline.* Le chiffre mis en avant (128 tok/s contre 61 tok/s en FP16) compare au
+FP16. Ce n'est pas la comparaison qui décide : la RHT fixe est elle aussi bien plus rapide
+que le FP16. La seule question qui compte est **HARP contre RHT fixe à budget de bits égal**,
+en qualité *et* en débit — une rotation apprise coûte plus cher à l'exécution qu'un Hadamard
+(paramètres à charger, transformée moins fusionnable). À vérifier en premier dans le PDF.
+
+*Sur le plafond.* Les auteurs de LLVQ (§3.3) observent que la quantification vectorielle en
+haute dimension **réduit la dépendance au préconditionnement rotationnel** — leur variante
+sans rotation bat déjà E8P avec rotation. Si cela se confirme, HARP et LLVQ sont
+partiellement **substituables et non complémentaires** : améliorer la rotation rapporte
+d'autant moins que le quantiseur aval est bon. HARP garde toute sa valeur en amont d'un
+quantiseur scalaire ou basse dimension ; en amont de Leech, le gain marginal est incertain.
+
 **Effort** : 3–6 semaines. **Risque** : moyen — les gains peuvent fondre après quantification
-réelle. **Place libre** : oui, largement.
+réelle, et le plafond ci-dessus est réel. **Place libre** : oui, largement.
 
 ---
 
@@ -160,35 +175,45 @@ faisabilité, élevé sur la reproduction exacte des chiffres. **Place libre** :
 
 ### 3.3 — Quantification vectorielle par réseau de Leech
 
-- **arXiv** : 2603.11021 (mars 2026)
+- **arXiv** : 2603.11021 (mars 2026) — sigle **LLVQ**
 - **Titre** : *Leech Lattice Vector Quantization for Efficient LLM Compression*
-- **Code** : **aucune implémentation LLM sérieuse.** Les résultats GitHub sur « Leech
-  lattice » sont des projets de compression généraliste ou des curiosités mathématiques.
+- **Auteurs** : van der Ouderaa, van Baalen, Whatmough, Nagel — **Qualcomm AI Research**,
+  l'équipe de référence sur la quantification. Ce n'est pas un papier isolé.
+- **Code** : pas d'implémentation exploitable. Un seul dépôt existe,
+  `dmnunez1993/llvq-paper-reproduction` (notebook Jupyter, 0 étoile, créé le 22 mai 2026,
+  dernier commit le 2 juin) — une tentative de reproduction **dormante**.
 
 **L'idée.** La quantification scalaire perd par construction : quantifier chaque poids
 indépendamment ignore la structure du vecteur. La quantification vectorielle sur réseau
 exploite le fait qu'en dimension 24, le réseau de Leech est l'empilement de sphères optimal
-prouvé — c'est le codebook théoriquement le meilleur possible à cette dimension, avec un
-gain de granularité connu (~1,03 dB sur la quantification scalaire).
+prouvé — le codebook théoriquement le meilleur possible à cette dimension.
 
-**Pourquoi c'est un beau sujet d'ingénieur.** Contrairement à un papier de ML flou, ici la
-partie mathématique est **entièrement spécifiée et publique depuis quarante ans** :
-l'algorithme de décodage de Conway–Sloane pour Λ24 est documenté, exact, déterministe. Le
-travail n'est pas de deviner ce que voulaient dire les auteurs, c'est d'écrire un décodeur
-rapide. C'est un profil de tâche à faible risque d'échec et à forte valeur : si le décodage
-tient en quelques nanosecondes par vecteur sur GPU, on a un quantiseur de poids meilleur que
-l'état de l'art à 2–3 bits.
+**Le verrou que le papier lève.** Jusqu'ici la VQ sur réseau butait sur un dilemme : soit on
+matérialise le codebook (à 2 bits/dim sur 24 dims, cela ferait 2⁴⁸ entrées — impossible),
+soit on descend en dimension. C'est exactement pourquoi QuIP# a choisi **E8 en dimension 8**
+et pas Leech : son codebook E8P tient en 2¹⁶ entrées, ramenées à une table de 2⁸ par
+symétrie, donc en mémoire partagée GPU. LLVQ étend l'algorithme de recherche fondé sur le
+code de Golay étendu pour obtenir (i) un **indexage sans matérialiser le codebook**,
+(ii) une recherche angulaire sur une union de couches du réseau, (iii) un **noyau de
+déquantification entièrement parallélisable**. Les trois pièces algorithmiques dures sont
+donc traitées dans le papier.
 
-**Le travail d'ingénieur.**
-1. Décodeur Leech vectorisé sur GPU (le point dur : il faut qu'il soit *rapide*, sinon la
-   dequantification tue le gain mémoire).
-2. Combinaison avec l'incoherence processing (Hadamard ou HARP en amont) — les deux se
-   composent naturellement.
-3. Comparaison frontale avec QTIP (`Cornell-RelaxML/qtip`), qui est le SOTA sortant et
-   utilise un treillis plutôt qu'un réseau.
+**Le résultat annoncé.** LLVQ dépasserait QuIP#, QTIP et PVQ — c'est-à-dire l'état de l'art
+réel, pas une baseline de complaisance. Un point mérite attention : la variante shape–gain
+avec GPTQ sphérique battrait E8P **même sans rotation**, les auteurs notant que la VQ en
+haute dimension *réduit intrinsèquement la dépendance au préconditionnement rotationnel*.
+Voir §3.1 pour la conséquence stratégique.
 
-**Effort** : 4–8 semaines. **Risque** : faible côté correction, réel côté vitesse de
-décodage. **Place libre** : oui.
+**Le travail d'ingénieur.** Il ne s'agit ni de redériver Conway–Sloane, ni de deviner
+l'intention des auteurs : tout est spécifié. Le travail est en aval.
+1. Noyau de déquantification fusionné en production (Triton/CUDA), au niveau de ce que fait
+   `cnygaard/glq` pour E8 — c'est le juge de paix, un noyau lent annule le gain mémoire.
+2. Format de sérialisation et intégration GGUF / vLLM.
+3. Rejeu du protocole face à QTIP (`Cornell-RelaxML/qtip`) sur *notre* matériel.
+
+**Effort** : 4–8 semaines. **Risque** : faible sur la correction (algorithme publié et
+exact), réel sur le débit du noyau. **Place libre** : oui — quatre mois après publication,
+personne n'a livré. La barrière à l'entrée est technique, donc protectrice.
 
 ---
 
@@ -257,8 +282,8 @@ llama.cpp**, où il n'y a rien. Et l'auteur amont a un intérêt direct à voir 
 | # | Papier | arXiv | Levier | Code amont | Effort | Impact souveraineté |
 |---|---|---|---|---|---|---|
 | 3.2 | **CoX-MoE** | 2605.17889 | Offload MoE | **Aucun** | 6–10 sem | ⭐⭐⭐⭐⭐ |
-| 3.1 | **HARP** | 2605.29843 | Poids | Squelette (0 ★) | 3–6 sem | ⭐⭐⭐⭐ |
-| 3.3 | **Leech VQ** | 2603.11021 | Poids | Aucun | 4–8 sem | ⭐⭐⭐⭐ |
+| 3.3 | **Leech VQ (LLVQ)** | 2603.11021 | Poids | Repro dormante (0 ★) | 4–8 sem | ⭐⭐⭐⭐⭐ |
+| 3.1 | **HARP** | 2605.29843 | Poids | Squelette (0 ★) | 3–6 sem | ⭐⭐⭐ |
 | 3.4 | **Attention Editing** | 2604.05688 | Architecture / KV | Aucun | 4–6 sem | ⭐⭐⭐⭐ |
 | 3.5 | **RaBitQCache** | 2606.31519 | KV cache | Officiel (14 ★) | 2–4 sem | ⭐⭐⭐ |
 | — | ~~TurboQuant~~ | — | KV cache | 6+ impls, 12k ★ | — | **Saturé** |
@@ -285,8 +310,12 @@ démarche avec un risque minimal.
 
 **Vague 2 — au choix selon le profil de l'équipe :**
 - profil système bas niveau → **CoX-MoE (3.2)**, le pari le plus rentable ;
-- profil ML/quantification → **HARP (3.1)** ou **Leech VQ (3.3)**, qui se composent et
-  peuvent être menés ensemble (HARP en amont, Leech en aval du même pipeline).
+- profil ML/quantification → **Leech VQ (3.3)** en priorité, **HARP (3.1)** en repli.
+
+> ⚠️ Correction par rapport à la première version de ce document : 3.1 et 3.3 **ne se
+> composent pas** aussi bien qu'annoncé. LLVQ montre que la VQ en haute dimension réduit la
+> dépendance à la rotation ; les deux pistes se recouvrent donc partiellement. Il faut en
+> choisir une, pas les empiler en espérant additionner les gains.
 
 **Vague 3 — Attention Editing (3.4)**, une fois qu'on a un protocole d'évaluation
 suffisamment robuste pour détecter une dégradation subtile des capacités. Le faire plus tôt,
@@ -314,6 +343,8 @@ Papiers :
 - [Token Sparse Attention — 2602.03216](https://arxiv.org/abs/2602.03216)
 - [D2Quant — 2602.02546](https://arxiv.org/html/2602.02546v2)
 - [QTIP (référence sortante) — 2406.11235](https://arxiv.org/abs/2406.11235)
+- [QuIP# (codebook E8P) — 2402.04396](https://arxiv.org/abs/2402.04396)
+- [Grouped Lattice Vector Quantizers — 2510.20984](https://arxiv.org/pdf/2510.20984)
 
 Dépôts et écosystème :
 - [Sakuraaa0/RaBitQCache](https://github.com/Sakuraaa0/RaBitQCache)
