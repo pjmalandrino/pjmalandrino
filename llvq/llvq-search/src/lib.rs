@@ -558,7 +558,7 @@ impl Searcher {
         for &oct in g.of_weight(8) {
             let mut s2 = ws.sum_abs(oct);
             let mut flip = None;
-            if ws.neg_count(oct) % 2 == 0 {
+            if ws.neg_count(oct).is_multiple_of(2) {
                 let (ma, mi) = ws.min_abs(oct);
                 s2 -= 2.0 * ma;
                 flip = Some(mi);
