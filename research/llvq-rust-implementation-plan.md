@@ -240,7 +240,12 @@ du résidu sur les colonnes non traitées.
 Calibration : **6 100 séquences de DCLM-edu** (même taille que QuIP#). Finetuning optionnel :
 uniquement les échelles d'entrée partagées par lignes, ~52 M tokens, < 0,001 bpw de surcoût.
 
-> **Gate G5 — reproduction, sur Llama-2 7B et Llama-3 8B à 2 bpw.** LLVQ doit battre
+**Progression petit → gros** (décision projet) : d'abord **Qwen3-0.6B** en smoke test du
+pipeline, puis **Qwen3-4B** — le plus petit modèle pour lequel le papier publie des chiffres
+de référence (Table 6) — et seulement ensuite les 7B/8B. Chaque étape ne sert qu'à dérisquer
+la suivante.
+
+> **Gate G5 — reproduction, sur Qwen3-4B puis Llama-2 7B et Llama-3 8B à 2 bpw.** LLVQ doit battre
 > QuIP#/E8P et QTIP en perplexité Wikitext-2 (contexte 4096), MMLU et CSR, dans le pipeline
 > unifié de la Table 6. Écart de PPL ≤ 0,05 → validé. > 0,2 ou LLVQ ne bat pas QuIP# →
 > **point de sortie du projet**.
