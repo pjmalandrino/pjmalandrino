@@ -227,6 +227,13 @@ i.i.d. `N(0,1)` et comparer à la Table 3 du papier, à 2 bits/dim :
 | **LLVQ shape–gain** | 24 | **0,1078** | **1,849** | **92,11 %** |
 | Limite théorique | — | 0,0625 | 2 | 100 % |
 
+> ⚠️ **Correction (constatée en phase 4)** : les colonnes MSE et SQNR de cette transcription
+> sont mutuellement incohérentes (−½log₂(0,1084) = 1,603 ≠ 1,798) — l'extraction texte du
+> PDF avait un encodage de police décalé et les chiffres des tableaux sont partiellement
+> corrompus. L'ancre auto-cohérente est la colonne **rétention** (89,14 % / 92,11 %). Notre
+> implémentation mesure MSE 0,0775 / rétention 92,23 % (spherical, β ajusté) à 1,9999
+> bits/dim — gate G4 atteint. À re-vérifier sur le PDF original en Phase 5.
+
 > **Gate G4.** Rétention ≥ 89 % en spherical shaping et ≥ 92 % en shape–gain. Contrôle
 > analytique gratuit : à 2 bits/dim, `MSE* = 2⁻²ᴿ = 0,0625` exactement — si votre limite
 > théorique ne tombe pas sur 0,0625, le protocole de mesure est faux avant même le

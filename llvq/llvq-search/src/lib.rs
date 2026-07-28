@@ -37,6 +37,9 @@
 
 #![forbid(unsafe_code)]
 
+pub mod classes;
+pub mod generic;
+
 use llvq_core::{Leech, Point, DIM};
 
 /// Ranking metric across shells (§3.1 of the paper).

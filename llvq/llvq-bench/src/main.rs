@@ -75,4 +75,50 @@ fn main() {
         r_sph,
         100.0
     );
+
+    // ------------------------------------------------------------------
+    // Full ball Λ₂₄(13): the 2 bit/dim regime of the paper's Table 3.
+    // ------------------------------------------------------------------
+    eprintln!("\nsearching ball-13 (12 shells, generic class engine)…");
+    let t1 = std::time::Instant::now();
+    let train13 = precompute13(&s, &train);
+    let eval13 = precompute13(&s, &eval);
+    eprintln!(
+        "ball-13 pass: {:.1}s ({:.0} blocks/s total)",
+        t1.elapsed().as_secs_f64(),
+        (train_n + eval_n) as f64 / t1.elapsed().as_secs_f64()
+    );
+
+    let beta13 = optimize_beta13(&train13, 0.2, 0.9, 140);
+    let mse13 = spherical_mse13(&eval13, beta13);
+    let r13 = rate_spherical13();
+
+    let train_t13: Vec<f64> = train13.iter().map(BlockDots13::t).collect();
+    let rows_sg13: Vec<(u32, f64, f64)> = [0u32, 2]
+        .into_iter()
+        .map(|k| {
+            let centroids = lloyd_max(&train_t13, k, 60);
+            (k, rate_shape_gain13(k), shape_gain_mse13(&eval13, &centroids))
+        })
+        .collect();
+
+    println!("\n— ball Λ24(13), 2 bits/dim (paper Table 3), β* = {beta13:.3} —");
+    println!(
+        "{:<38} {:>9} {:>9} {:>12} {:>9}",
+        "method", "bits/dim", "MSE", "SQNR(bits)", "Ret(%)"
+    );
+    row("paper Table 3: spherical shaping", 2.0, 0.1084);
+    row("paper Table 3: shape–gain", 2.0, 0.1078);
+    row("LLVQ spherical shaping (m ≤ 13)", r13, mse13);
+    for (k, r, mse) in &rows_sg13 {
+        row(&format!("LLVQ shape–gain, {k}-bit gain (m ≤ 13)"), *r, *mse);
+    }
+    println!(
+        "{:<38} {:>9.4} {:>9.4} {:>12.4} {:>9.2}",
+        "Shannon limit @ 2 bits/dim",
+        2.0,
+        0.0625,
+        2.0,
+        100.0
+    );
 }

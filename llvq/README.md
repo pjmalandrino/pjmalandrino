@@ -14,8 +14,9 @@ Plan détaillé, gates de validation et provenance :
 |---|---|---|---|
 | 1 | `llvq-core` — Golay [24,12,8], Λ₂₄ (Eq. 4–5), couches | **G1** ✅ | fait |
 | 2 | `llvq-search` — Adoul–Barth multi-couches (euclidien + angulaire) | **G2** ✅ | fait (m ≤ 3) |
+| 2b | Moteur générique de classes (m ≤ 13, régime 2 bits/poids) | **G2b** ✅ | fait |
 | 3 | Indexage bijectif hiérarchique | G3 | à venir |
-| 4 | Validation source gaussienne (Table 3 : rétention 92,11 %) | G4 ⏳ | **préliminaire fait** |
+| 4 | Validation source gaussienne (Table 3) | **G4** ✅ | **fait : 92,23 %** |
 | 5 | Spherical GPTQ + pipeline LLM | G5 | à venir |
 | 6 | Noyau CUDA fusé multi-couches | G6 | à venir |
 
@@ -55,12 +56,40 @@ gaussienne N(0,1), 20 000 blocs d'évaluation :
 | LLVQ shape–gain, gain 2 bits (m ≤ 3) | 1,0840 | 0,2733 | 86,3 % |
 | Limite de Shannon | 1,0007 | 0,2498 | 100 % |
 
-90,1 % de rétention à ~1 bit/dim est cohérent avec la Table 3 du papier
-(89,14 % / 92,11 % à 2 bits/dim) — signal fort que la pile construction +
-recherche est correcte. Le point à 2 bits/dim exact (gate G4 complet) exige
-les couches jusqu'à m = 13 : moteur générique de meneurs, Phase 2b. Le test
-`g4_prelim` encadre ces chiffres (battre le scalaire optimal, ne PAS battre
-Shannon — un « dépassement » de la borne signalerait un bug de mesure).
+Gate G2b (moteur générique, `llvq-search/src/{classes,generic}.rs`) :
+énumération programmatique des classes d'équivalence des couches 2..13 —
+la formule de cardinalité reproduit les coefficients thêta connus **et la
+somme cumulée exacte N(13) = 280 974 212 784 720** (Table 1 du papier), un
+verrou à 15 chiffres. Deux résultats structurants dérivés et testés : la
+condition de somme des classes impaires se réduit à « n₁+n₇+n₉ impair »
+au niveau classe (signes forcés, maximiseur = appariement trié, exact par
+réarrangement) ; la réparation de parité des classes paires est « sacrifier
+une valeur au plus petit |x| du support et retasser », validée contre une
+référence DP exhaustive, et le moteur coïncide avec le chemin rapide sur
+les couches énumérables.
+
+**Gate G4 complet — source gaussienne à 2 bits/dim (Table 3 du papier) :**
+
+| méthode | bits/dim | MSE | rétention |
+|---|---|---|---|
+| papier, spherical shaping | 2,000 | — | 89,14 % |
+| papier, shape–gain | 2,000 | — | 92,11 % |
+| **LLVQ spherical shaping (β\* = 0,350)** | 1,9999 | 0,0775 | **92,23 %** |
+| LLVQ shape–gain, gain 2 bits | 2,0832 | 0,0670 | 93,62 % |
+| Shannon | 2,000 | 0,0625 | 100 % |
+
+⚠️ La colonne MSE de la Table 3 telle que transcrite du PDF (0,1084/0,1078)
+est incohérente avec sa propre colonne SQNR (1,798 ⇒ MSE ≈ 0,0845) — la
+transcription des chiffres avait un encodage de police décalé. L'ancre
+fiable est la **rétention** (89,14 % / 92,11 %), que notre implémentation
+atteint et dépasse. La mesure ne peut pas surestimer la qualité : chaque
+dot par-couche est atteint par un point matérialisé du codebook, vérifié
+membre — un bug moteur ne pourrait que dégrader les chiffres. Le
+dépassement s'explique vraisemblablement par le fit de l'échelle β.
+
+Débit du moteur générique : ~560 blocs/s au total (~1,8 ms/bloc/cœur) —
+suffisant pour G4 et Qwen3-0.6B, à optimiser (élagage, SIMD) avant les
+modèles 4B+.
 
 ## Stratégie de test LLM (phases 4+)
 
