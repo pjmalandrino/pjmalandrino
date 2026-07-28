@@ -1,12 +1,15 @@
 # llvq — Leech Lattice Vector Quantization en Rust
 
+> **Nouvelle session ?** Lire [`CLAUDE.md`](CLAUDE.md) — état, dérivations
+> non triviales à ne pas re-chercher, pièges, et prochaines étapes.
+
 Implémentation du papier **[LLVQ, arXiv:2603.11021](https://arxiv.org/abs/2603.11021)**
 (van der Ouderaa, van Baalen, Whatmough, Nagel — Qualcomm AI Research, 2026) :
 quantification vectorielle de poids de LLM sur le réseau de Leech Λ₂₄, état de
 l'art à 2 bits/poids, sans codebook matérialisé.
 
 Plan détaillé, gates de validation et provenance :
-[`../research/llvq-rust-implementation-plan.md`](../research/llvq-rust-implementation-plan.md).
+[`docs/llvq-rust-implementation-plan.md`](docs/llvq-rust-implementation-plan.md).
 
 ## État
 
@@ -41,9 +44,11 @@ Shell(2), Shell(3) et leur union (métriques euclidienne *et* angulaire,
 la série thêta). Zéro énumération à la requête : maxima par classe en forme
 close (réparation de parité par flip du min |xᵢ|), quantités par-codeword
 en tables DP par chunks de 8 bits, élagage par borne supérieure. Débit
-mesuré : **~7 300 requêtes/s/cœur** (au lieu de 507 en naïf) — l'objectif
-10⁵ attend SIMD et l'itération triée de la Phase 2b ; à ce débit, encoder
-Qwen3-4B prend ~12 min sur 32 cœurs, ce qui ne bloque pas G4/G5.
+mesuré : **~7 300 requêtes/s/cœur** (au lieu de 507 en naïf).
+
+⚠️ Ce chiffre ne vaut que pour le chemin rapide m ≤ 3. Le moteur générique
+m ≤ 13, celui qu'exige le régime 2 bits/poids, tourne à **~140 blocs/s/cœur**
+(voir `CLAUDE.md` §6 pour le goulot identifié et les pistes).
 
 Gate G4 préliminaire (`llvq-bench`, `cargo run --release -p llvq-bench`) —
 premier chiffre de qualité, sans LLM, protocole du §4 du papier sur source
