@@ -1,7 +1,8 @@
 # llvq — Leech Lattice Vector Quantization en Rust
 
-> **Nouvelle session ?** Lire [`CLAUDE.md`](CLAUDE.md) — état, dérivations
-> non triviales à ne pas re-chercher, pièges, et prochaines étapes.
+> **Commencer ici : [`ETAT.md`](ETAT.md)** — le plan, ce qui est fait, le RAF.
+> Pour une session Claude Code : [`CLAUDE.md`](CLAUDE.md) (chargé
+> automatiquement — dérivations non triviales, pièges, conventions).
 
 Implémentation du papier **[LLVQ, arXiv:2603.11021](https://arxiv.org/abs/2603.11021)**
 (van der Ouderaa, van Baalen, Whatmough, Nagel — Qualcomm AI Research, 2026) :
