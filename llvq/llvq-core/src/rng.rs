@@ -25,4 +25,17 @@ impl SplitMix64 {
         z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
         z ^ (z >> 31)
     }
+
+    /// Uniform in `[0, 1)` (53-bit mantissa).
+    #[inline]
+    pub fn next_f64(&mut self) -> f64 {
+        (self.next() >> 11) as f64 * (1.0 / 9_007_199_254_740_992.0)
+    }
+
+    /// Standard normal `N(0, 1)` via Box–Muller (cosine branch).
+    pub fn next_gaussian(&mut self) -> f64 {
+        let u1 = ((self.next() >> 11) as f64 + 1.0) * (1.0 / 9_007_199_254_740_993.0); // (0,1]
+        let u2 = self.next_f64();
+        (-2.0 * u1.ln()).sqrt() * (core::f64::consts::TAU * u2).cos()
+    }
 }

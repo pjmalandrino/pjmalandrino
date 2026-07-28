@@ -15,7 +15,7 @@ Plan détaillé, gates de validation et provenance :
 | 1 | `llvq-core` — Golay [24,12,8], Λ₂₄ (Eq. 4–5), couches | **G1** ✅ | fait |
 | 2 | `llvq-search` — Adoul–Barth multi-couches (euclidien + angulaire) | **G2** ✅ | fait (m ≤ 3) |
 | 3 | Indexage bijectif hiérarchique | G3 | à venir |
-| 4 | Validation source gaussienne (Table 3 : rétention 92,11 %) | G4 | à venir |
+| 4 | Validation source gaussienne (Table 3 : rétention 92,11 %) | G4 ⏳ | **préliminaire fait** |
 | 5 | Spherical GPTQ + pipeline LLM | G5 | à venir |
 | 6 | Noyau CUDA fusé multi-couches | G6 | à venir |
 
@@ -43,6 +43,24 @@ en tables DP par chunks de 8 bits, élagage par borne supérieure. Débit
 mesuré : **~7 300 requêtes/s/cœur** (au lieu de 507 en naïf) — l'objectif
 10⁵ attend SIMD et l'itération triée de la Phase 2b ; à ce débit, encoder
 Qwen3-4B prend ~12 min sur 32 cœurs, ce qui ne bloque pas G4/G5.
+
+Gate G4 préliminaire (`llvq-bench`, `cargo run --release -p llvq-bench`) —
+premier chiffre de qualité, sans LLM, protocole du §4 du papier sur source
+gaussienne N(0,1), 20 000 blocs d'évaluation :
+
+| méthode | bits/dim | MSE | rétention Shannon |
+|---|---|---|---|
+| Lloyd–Max scalaire 1 bit (analytique) | 1,0000 | 0,3634 | 73,0 % |
+| **LLVQ spherical shaping (m ≤ 3)** | 1,0007 | 0,2865 | **90,1 %** |
+| LLVQ shape–gain, gain 2 bits (m ≤ 3) | 1,0840 | 0,2733 | 86,3 % |
+| Limite de Shannon | 1,0007 | 0,2498 | 100 % |
+
+90,1 % de rétention à ~1 bit/dim est cohérent avec la Table 3 du papier
+(89,14 % / 92,11 % à 2 bits/dim) — signal fort que la pile construction +
+recherche est correcte. Le point à 2 bits/dim exact (gate G4 complet) exige
+les couches jusqu'à m = 13 : moteur générique de meneurs, Phase 2b. Le test
+`g4_prelim` encadre ces chiffres (battre le scalaire optimal, ne PAS battre
+Shannon — un « dépassement » de la borne signalerait un bug de mesure).
 
 ## Stratégie de test LLM (phases 4+)
 
