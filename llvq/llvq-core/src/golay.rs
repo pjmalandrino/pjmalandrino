@@ -109,6 +109,30 @@ impl Golay {
         }
         &self.flat[self.offsets[weight]..self.offsets[weight + 1]]
     }
+
+    /// Rank of a codeword in the fixed [`Golay::codewords`] order
+    /// (weight-major, ascending within a weight), or `None` if `word` is
+    /// not a codeword. `codewords()[rank] == word` — this order is part of
+    /// the LLVQ index format and must never change.
+    pub fn rank(&self, word: u32) -> Option<usize> {
+        let w = word.count_ones() as usize;
+        if w > 24 {
+            return None;
+        }
+        let bucket = &self.flat[self.offsets[w]..self.offsets[w + 1]];
+        bucket.binary_search(&word).ok().map(|i| self.offsets[w] + i)
+    }
+
+    /// Rank of a codeword *within its weight bucket* (ascending), or `None`.
+    pub fn rank_in_weight(&self, word: u32) -> Option<usize> {
+        let w = word.count_ones() as usize;
+        if w > 24 {
+            return None;
+        }
+        self.flat[self.offsets[w]..self.offsets[w + 1]]
+            .binary_search(&word)
+            .ok()
+    }
 }
 
 impl Default for Golay {

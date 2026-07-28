@@ -15,7 +15,7 @@ Plan détaillé, gates de validation et provenance :
 | 1 | `llvq-core` — Golay [24,12,8], Λ₂₄ (Eq. 4–5), couches | **G1** ✅ | fait |
 | 2 | `llvq-search` — Adoul–Barth multi-couches (euclidien + angulaire) | **G2** ✅ | fait (m ≤ 3) |
 | 2b | Moteur générique de classes (m ≤ 13, régime 2 bits/poids) | **G2b** ✅ | fait |
-| 3 | Indexage bijectif hiérarchique | G3 | à venir |
+| 3 | Indexage bijectif hiérarchique (`index.rs`, format v1, 48 bits) | **G3** ✅ | fait |
 | 4 | Validation source gaussienne (Table 3) | **G4** ✅ | **fait : 92,23 %** |
 | 5 | Spherical GPTQ + pipeline LLM | G5 | à venir |
 | 6 | Noyau CUDA fusé multi-couches | G6 | à venir |
@@ -90,6 +90,17 @@ dépassement s'explique vraisemblablement par le fit de l'échelle β.
 Débit du moteur générique : ~560 blocs/s au total (~1,8 ms/bloc/cœur) —
 suffisant pour G4 et Qwen3-0.6B, à optimiser (élagage, SIMD) avant les
 modèles 4B+.
+
+Gate G3 (`llvq-search/src/index.rs`) : bijection point ↔ entier ≤ N(13)
+(48 bits par bloc de 24 poids, régime 2 bits/poids exact) sans codebook
+matérialisé — hiérarchie couche → classe → (codeword, arrangement, signes)
+linéarisée en mixed-radix, rangs de permutation de multiset en u128.
+Vérifié : aller-retour exhaustif sur Shell(2) (196 560 points, zéro
+collision), 2 M d'indices aléatoires à travers les 2⁴⁸ points
+(decode → membre → re-encode identique), frontières de classes, gagnants
+du moteur de recherche. Le format v1 (ordre des codewords, ordre
+d'énumération des classes, ordre de composition) est documenté comme
+contrat de stabilité.
 
 ## Stratégie de test LLM (phases 4+)
 

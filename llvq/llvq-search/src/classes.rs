@@ -73,7 +73,7 @@ pub struct ClassSet {
     pub odd: Vec<OddClass>,
 }
 
-const FACT: [u128; 25] = {
+pub(crate) const FACT: [u128; 25] = {
     let mut f = [1u128; 25];
     let mut i = 1;
     while i < 25 {
@@ -82,6 +82,18 @@ const FACT: [u128; 25] = {
     }
     f
 };
+
+/// `n! / Π counts[i]!` — the number of distinct arrangements of a multiset
+/// with the given kind counts over `n = Σ counts` slots (n ≤ 24).
+pub(crate) fn multinomial(counts: &[u8]) -> u128 {
+    let n: usize = counts.iter().map(|&c| c as usize).sum();
+    debug_assert!(n <= 24);
+    let mut m = FACT[n];
+    for &c in counts {
+        m /= FACT[c as usize];
+    }
+    m
+}
 
 impl EvenClass {
     pub fn cardinality(&self) -> u64 {
