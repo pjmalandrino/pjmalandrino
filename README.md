@@ -31,7 +31,7 @@ I build products around intelligent document processing and write about software
 
 - **[Docling-agent](https://github.com/docling-project/docling-agent)** : an agent layer on top of DoclingDocument for writing, editing and enriching documents, with the model backend left to you.
 - **[Candle](https://github.com/huggingface/candle)** : the minimal ML framework for Rust from Hugging Face. Llvq runs its models on it, so most of what I send back comes out of that work.
-- **[Karate](https://github.com/karatelabs/karate)** : API test automation. The tests stay readable by people who never open a Java file.
+- **[Karate](https://github.com/karatelabs/karate)** : API test automation in plain text. Running delivery teams, it is the one suite a tester can write and a client can read in the same review, which is why it follows me from project to project.
 
 ### Stack
 
