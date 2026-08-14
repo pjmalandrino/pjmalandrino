@@ -16,7 +16,7 @@ I build products around intelligent document processing and write about software
 
 <a href="https://github.com/scub-france/Docling-Studio"><img src="./assets/docling-studio-logo.png" alt="Docling Studio" width="48" height="48"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/pjmalandrino/llvq"><img src="./assets/llvq-logo.png" alt="Llvq" width="48" height="48"/></a>
+<a href="https://github.com/pjmalandrino/llvq"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/llvq-logo-dark.png"/><img src="./assets/llvq-logo.png" alt="Llvq" width="48" height="48"/></picture></a>
 
 - **[Docling Studio](https://github.com/scub-france/Docling-Studio)** : drop a PDF in the browser, set up the Docling pipeline, and see what actually comes out of it page by page. Text, tables, figures, bounding boxes, chunks, then export to Markdown or push straight to a vector index.
 - **[Llvq](https://github.com/pjmalandrino/llvq)** : Leech lattice quantization for LLM weights, written from scratch in Rust. Qwen3-4B at roughly 2 bits per weight, with a CUDA kernel that reads the packed weights on the card, so the memory goes down and the tokens per second do not.
