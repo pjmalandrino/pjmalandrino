@@ -35,7 +35,8 @@ I build products around intelligent document processing and write about software
 
 ### Stack
 
-[![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,vue,fastapi&theme=light)](https://skillicons.dev)
+[![Stack](https://skillicons.dev/icons?i=angular,spring,java,python,rust,vue,fastapi&theme=light)](https://skillicons.dev)
+<a href="https://huggingface.co/Pier-Jean"><img src="./assets/huggingface-logo.png" alt="Hugging Face" width="48" height="48"/></a>
 
 ### Contributions
 
