@@ -14,7 +14,7 @@ I build products around intelligent document processing and write about software
 
 ### What I build
 
-<a href="https://github.com/scub-france/Docling-Studio"><img src="./assets/docling-studio-logo.svg" alt="Docling Studio" height="44"/></a>
+<a href="https://github.com/scub-france/Docling-Studio"><img src="./assets/docling-studio-logo.png" alt="Docling Studio" height="44"/></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://github.com/pjmalandrino/llvq"><img src="./assets/llvq-logo.svg" alt="Llvq" height="44"/></a>
 
@@ -25,7 +25,7 @@ I build products around intelligent document processing and write about software
 
 <a href="https://github.com/docling-project/docling-agent"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling-agent" height="44"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/huggingface/candle"><img src="./assets/candle-logo.svg" alt="Candle" height="44"/></a>
+<a href="https://github.com/huggingface/candle"><img src="./assets/huggingface-logo.svg" alt="Candle" height="44"/></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://github.com/karatelabs/karate"><img src="./assets/karate-logo.svg" alt="Karate" height="44"/></a>
 
