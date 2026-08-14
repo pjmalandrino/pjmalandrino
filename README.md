@@ -14,20 +14,20 @@ I build products around intelligent document processing and write about software
 
 ### What I build
 
-<a href="https://github.com/scub-france/Docling-Studio"><img src="./assets/docling-studio-logo.png" alt="Docling Studio" height="44"/></a>
+<a href="https://github.com/scub-france/Docling-Studio"><img src="./assets/docling-studio-logo.png" alt="Docling Studio" width="48" height="48"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/pjmalandrino/llvq"><img src="./assets/llvq-logo.svg" alt="Llvq" height="44"/></a>
+<a href="https://github.com/pjmalandrino/llvq"><img src="./assets/llvq-logo.png" alt="Llvq" width="48" height="48"/></a>
 
 - **[Docling Studio](https://github.com/scub-france/Docling-Studio)** : drop a PDF in the browser, set up the Docling pipeline, and see what actually comes out of it page by page. Text, tables, figures, bounding boxes, chunks, then export to Markdown or push straight to a vector index.
 - **[Llvq](https://github.com/pjmalandrino/llvq)** : Leech lattice quantization for LLM weights, written from scratch in Rust. Qwen3-4B at roughly 2 bits per weight, with a CUDA kernel that reads the packed weights on the card, so the memory goes down and the tokens per second do not.
 
 ### What I contribute to
 
-<a href="https://github.com/docling-project/docling-agent"><img src="https://raw.githubusercontent.com/docling-project/docling/main/docs/assets/logo.png" alt="Docling-agent" height="44"/></a>
+<a href="https://github.com/docling-project/docling-agent"><img src="./assets/docling-logo.png" alt="Docling-agent" width="48" height="48"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/huggingface/candle"><img src="./assets/huggingface-logo.svg" alt="Candle" height="44"/></a>
+<a href="https://github.com/huggingface/candle"><img src="./assets/huggingface-logo.png" alt="Candle" width="48" height="48"/></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/karatelabs/karate"><img src="./assets/karate-logo.svg" alt="Karate" height="44"/></a>
+<a href="https://github.com/karatelabs/karate"><img src="./assets/karate-logo.png" alt="Karate" width="48" height="48"/></a>
 
 - **[Docling-agent](https://github.com/docling-project/docling-agent)** : an agent layer on top of DoclingDocument for writing, editing and enriching documents, with the model backend left to you.
 - **[Candle](https://github.com/huggingface/candle)** : the minimal ML framework for Rust from Hugging Face. Llvq runs its models on it, so most of what I send back comes out of that work.
