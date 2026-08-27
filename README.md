@@ -1,12 +1,12 @@
 # Pier-Jean Malandrino
 
-**CTO @ [SCUB](https://scub.net)** · AI & document intelligence
+**CTO @ [SCUB](https://scub.net)** · **AI Advisor @ [Karate Labs](https://www.karatelabs.io)** · AI & document intelligence
 
-I build products around intelligent document processing and write about software architecture, applied AI, and engineering craft.
+I build products around intelligent document processing and write about software architecture, applied AI, LLM quantization, and engineering craft.
 
 <p align="center">
   <a href="https://github.com/pjmalandrino">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3200&pause=900&color=58A6FF&center=true&vCenter=true&width=520&lines=CTO+%40+SCUB;AI+%26+document+intelligence;Docling%2C+agents%2C+LLM+quantization;Rust+and+Python" alt="typing"/>
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3200&pause=900&color=58A6FF&center=true&vCenter=true&width=520&lines=CTO+%40+SCUB;AI+Advisor+%40+Karate+Labs;AI+%26+document+intelligence;Docling%2C+agents%2C+LLM+quantization;Rust+and+Python" alt="typing"/>
   </a>
 </p>
 
